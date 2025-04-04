@@ -1,50 +1,53 @@
 'use client';
 
-import React, { useState } from 'react';  
+import React, { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 
-export default function Filter ({ onFilter }) {
-  const [searchText, setSearchText] = useState('');  
-  const [isTitleMode, setIsTitleMode] = useState(true); // true для поиска по заголовку  
+export default function Filter () {
+  const [searchText, setSearchText] = useState('');
+  const [searchMode, setSearchMode] = useState('byTitle'); // Режим поиска по содержимому (true); // true для поиска по заголовку  
 
-  const handleSearchTextChange = (e) => {  
-    setSearchText(e.target.value);  
-    onFilter(e.target.value, isTitleMode ? 'title' : 'content');  
+  const handleSearchTextChange = (e) => {
+    setSearchText(e.target.value);
+    // onFilter(e.target.value, isTitleMode ? 'title' : 'content');
   };  
 
-  const handleToggleChange = () => {  
-    setIsTitleMode(!isTitleMode);  
-    onFilter(searchText, isTitleMode ? 'content' : 'title'); // Применяем фильтр при смене режима  
+  const handleToggleChange = () => {
+    setSearchMode(searchMode === 'byTitle' ? 'byContent' : 'byTitle');
+    // onFilter(searchText, isTitleMode ? 'content' : 'title'); // Применяем фильтр при смене режима  
   };  
 
-  const handleReset = () => {  
-    setSearchText('');  
-    setIsTitleMode(true);  
-    onFilter('', 'title'); // Сбрасываем фильтрацию  
+  const handleReset = () => {
+    setSearchText('');
+    setSearchMode('byTitle');
+    // onFilter('', 'title');
   };  
 
-  return (  
-    <div className="filter-container mt-4 mb-4 flex items-center">  
-      <input  
-        type="text"  
-        placeholder="Type ..."  
-        value={searchText}  
-        onChange={handleSearchTextChange}  
-        className="border border-gray-300 focus:border-blue-500 rounded p-2 mr-2 w-full" 
-      />  
-      <label className="flex items-center mr-4">  
-        <input  
-          type="checkbox"  
-          checked={isTitleMode}  
-          onChange={handleToggleChange}
-          className="mr-2"
-        />  
-        <span className="w-18 whitespace-nowrap">
-          {isTitleMode ? 'by title' : 'by content'}  
-        </span>  
-      </label>  
-      <button onClick={handleReset} className="bg-gray-300 p-2 rounded">  
-        Reset 
-      </button>  
-    </div>  
+  return (
+    <div className="hidden md:flex h-full flex-row">
+      <div className="px-0 flex flex-row items-center justify-between w-full">
+        <Input  
+          type="search"
+          placeholder="Type for searching by ..."
+          value={searchText}  
+          onChange={handleSearchTextChange}
+          // className="border border-gray-300 focus:border-blue-500 rounded p-2 mr-2 w-full" 
+        />
+        <div className="flex items-center px-2 space-x-2">
+          <Label htmlFor="airplane-mode" className="w-auto inline-block whitespace-nowrap">title</Label>
+          <Switch data-id="airplane-mode" value={searchMode} onClick = {handleToggleChange} checked={searchMode === 'byContent'} />
+          <Label htmlFor="airplane-mode" className="w-auto inline-block whitespace-nowrap">content</Label>
+        </div>  
+        <Button variant="outline" onClick={handleReset}>
+          Reset
+        </Button>
+      </div>
+    </div>
   );  
 };
+
+// {`seach text: ${searchText} | `}
+// {`seach mode: ${searchMode}`}

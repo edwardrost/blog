@@ -4,7 +4,8 @@ import Header from "@/components/Header";
 import Filter from "@/components/Filter";
 import PostCard from "@/components/PostCard";
 import Footer from "@/components/Footer";
-import Image from "next/image";
+
+
 
 const postsFromApi = [
   {
@@ -81,13 +82,19 @@ const posts = postsFromApi.map((item) => transformObj(item));
 
 export default function Home() {
   return (
-    <div className="flex flex-col p-5 lg:px-48 lg:py-11">
+    <div className="flex flex-col h-screen justify-between">
       <Header />
-      <Filter />
-      <section className="md:w-full md:flex md:justify-center">
-        <div className="prose">
-          <div className="flex flex-col space-y-4 not-prose">
-            <div className="flex flex-col mt-8 space-y-6">
+      
+      <main className="flex flex-col justify-between px-16">
+        <section className="md:w-full md:flex md:justify-center">
+          <div className="prose">        
+            <div className="flex flex-col space-y-4 not-prose">
+              
+              <div className="flex flex-col mt-8 space-y-6">
+              <h2 className="text-3xl text-primary dark:text-bright font-bold tracking-tighter text-center sm:text-4xl">
+                Latest Blog Posts
+              </h2>
+              <Filter />
               <Suspense
                 fallback={
                   <div className="flex items-center">
@@ -109,7 +116,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>      
+      </section>
+      </main>      
       <Footer />
     </div>
   );
