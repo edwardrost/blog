@@ -1,12 +1,12 @@
 "use client";
 
-import { useThemeStore } from '@/store/theme-store';
+import { useBoundStore } from '@/store/bound-store';
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function ThemeToggle() {
-  const { theme, setTheme } = useThemeStore();
+  const { theme, setTheme } = useBoundStore();
   const { setTheme: setNextTheme } = useTheme();
 
   const toggleTheme = () => {

@@ -1,4 +1,4 @@
-import ThemeProvider from "@/theme/ThemeProvider";
+import BoundStoreProvider from "@/providers/bound-store-provider";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -23,14 +23,14 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#191919] text-[#37352f] dark:text-[#ffffffcf]`}
       >
-        <ThemeProvider
+        <BoundStoreProvider
           attribute="class"
           defaultTheme="light"
           enableSystem={false}
           disableTransitionOnChange
         >
           {children}
-        </ThemeProvider>
+        </BoundStoreProvider>
       </body>
     </html>
   );
