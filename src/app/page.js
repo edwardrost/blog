@@ -1,11 +1,9 @@
-import { Suspense } from "react";
-import Link from "next/link";
+'use client';
+
 import Header from "@/components/Header";
 import Filter from "@/components/Filter";
-import PostCard from "@/components/PostCard";
+import PostList from "@/components/PostList";
 import Footer from "@/components/Footer";
-
-
 
 const postsFromApi = [
   {
@@ -70,55 +68,23 @@ const postsFromApi = [
   },
 ];
 
-function transformObj( obj ){
+function transformObj(obj) {
   return {
     ...obj,
     date: new Intl.DateTimeFormat('ru-RU').format(new Date(new Date().getTime() - obj.id * 24 * 60 * 60 * 1000)),
-    imageUrl: `https://picsum.photos/id/${obj.id+10}/800/600`,
+    imageUrl: `https://picsum.photos/id/${obj.id + 10}/800/600`,
   };
-};
+}
 
 const posts = postsFromApi.map((item) => transformObj(item));
 
 export default function Home() {
   return (
-    <div className="flex flex-col h-screen justify-between">
+    <>
       <Header />
-      
-      <main className="flex flex-col justify-between px-16">
-        <section className="md:w-full md:flex md:justify-center">
-          <div className="prose">        
-            <div className="flex flex-col space-y-4 not-prose">
-              
-              <div className="flex flex-col mt-8 space-y-6">
-              <h2 className="text-3xl text-primary dark:text-bright font-bold tracking-tighter text-center sm:text-4xl">
-                Latest Blog Posts
-              </h2>
-              <Filter />
-              <Suspense
-                fallback={
-                  <div className="flex items-center">
-                    {/* <BlogCardSkeleton />
-                    <BlogCardSkeleton />
-                    <BlogCardSkeleton /> */}
-                  </div>
-                }
-              >
-                {posts.slice(0, 5).map((post) => (
-                  <PostCard key={post.id} post={post} />
-                ))}
-                <div className="flex justify-center">
-                  <Link href={"/blog"}>
-                    {/* <Button>Read More...</Button> */}
-                  </Link>
-                </div>
-              </Suspense>
-            </div>
-          </div>
-        </div>
-      </section>
-      </main>      
+      <Filter />
+      <PostList posts={posts} />
       <Footer />
-    </div>
+    </>
   );
 }

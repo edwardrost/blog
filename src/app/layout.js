@@ -23,6 +23,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-[#191919] text-[#37352f] dark:text-[#ffffffcf]`}
       >
+        <main className="flex flex-col min-h-screen">
         <BoundStoreProvider
           attribute="class"
           defaultTheme="light"
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
         >
           {children}
         </BoundStoreProvider>
+        </main>
       </body>
     </html>
   );
